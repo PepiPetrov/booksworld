@@ -35,7 +35,7 @@ function Preferences() {
     return (
         <div>
             <h1 className="my-4 font-weight-bold .display-4">Set Preferences</h1>
-            <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
+            <Form style={{ width: '300px', marginLeft: "20%" }} onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Genres</Form.Label>
                     <ReactTagInput

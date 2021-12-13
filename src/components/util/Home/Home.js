@@ -18,14 +18,14 @@ export default function Home() {
 
 function WelcomeMessage() {
     const user = useSelector((state) => state.user)
-    
+
     if (user.token !== null) {
         return <Toast className={styles['welcome']}>
-            <Toast.Body className="user-welcome">Welcome, {user.username}!</Toast.Body>
+            <Toast.Body className="user-welcome" data-testid="userlogged">Welcome, {user.username}!</Toast.Body>
         </Toast>
     } else {
         return <Toast className={styles['welcome']}>
-            <Toast.Body className={styles['link']}><Link to="/login" className={`${styles['link']} link`}>Login</Link> or <Link to="/register" className={styles['link']}>Register</Link></Toast.Body>
+            <Toast.Body className={styles['link']} data-testid="links"><Link to="/login" className={`${styles['link']} link`}>Login</Link> or <Link to="/register" className={styles['link']}>Register</Link></Toast.Body>
         </Toast>
     }
 }

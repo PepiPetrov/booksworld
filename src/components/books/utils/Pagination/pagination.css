@@ -23,3 +23,10 @@
 .pagination div:not(.active) {
     background-color: #444444;
 }
+
+@media all and (max-width:768px) {
+    .pagination {
+        flex-direction: column;
+        margin-left: 0;
+    }
+}

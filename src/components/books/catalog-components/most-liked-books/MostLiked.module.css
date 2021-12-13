@@ -1,0 +1,12 @@
+.books-row {
+    display: flex;
+    margin-left: 3%;
+    margin-right: 5%;
+}
+
+@media all and (max-width:768px) {
+    .books-row {
+        flex-direction: column;
+        margin-right:0;
+    }
+}

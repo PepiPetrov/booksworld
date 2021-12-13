@@ -10,7 +10,7 @@ export default function GuestNav() {
     return <header style={{ backgroundColor: "#ACD646", width: "100%" }}>
         <Navbar bg="light" expand="lg">
             <Container style={{ backgroundColor: "#ACD646" }}>
-                <Navbar.Brand to="/" as={Link}><Logo /> BooksWorld</Navbar.Brand>
+                <Navbar.Brand to="/" as={Link} data-testid="main"><Logo /> BooksWorld</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

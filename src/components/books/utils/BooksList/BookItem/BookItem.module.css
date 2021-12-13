@@ -1,0 +1,15 @@
+.card {
+    width: 90%;
+    margin-top: 3%;
+    margin-left: 5%;
+}
+
+
+@media all and (max-width:768px) {
+    .card {
+        width: 70%;
+        margin-top: 3%;
+        margin-left: 9%;
+        border: none;
+    }
+}

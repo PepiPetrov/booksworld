@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react"
 
-import usePaginate from "../../../../hooks/usePaginate"
-import Pagination from "../../utils/Pagination/Pagination"
-import BookItem from "../../utils/BookItem"
+import BooksList from '../../utils/BooksList/BooksList'
 import { getNewestBooks } from '../../../../services/books-service'
-import splitArray from "../../../util/splitArray"
 
 export default function NewestBooks() {
     const [newest, setNewest] = useState([])
     const [isFetch, setIsFetch] = useState(true)
 
-    const { data, totalCount, pageSize, currentPage, handlePageChange } = usePaginate(newest ? newest : [])
     useEffect(() => {
         if (isFetch) {
             getNewestBooks().then(x => {
@@ -22,25 +18,11 @@ export default function NewestBooks() {
         }
     })
 
-    const splittedData = splitArray(data, 3)
-
     return newest && newest.length > 0
         ? <>
             <h1>Newest books</h1>
-            {splittedData.map(x => {
-                return <div style={{ display: "flex", marginRight: "3%" }} key={x}>
-                    {x.map(book => {
-                        return <BookItem book={book} key={book._id} id={book._id}></BookItem>
-                    })
-                    }
-                </div>
-            })}
-            <Pagination
-                itemsCount={totalCount}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={handlePageChange} />
-            page {currentPage} of {Math.ceil(totalCount / pageSize)}
+            <BooksList books={newest} />
+
         </>
         : <p>No books</p>
 }

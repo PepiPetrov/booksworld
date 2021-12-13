@@ -2,10 +2,8 @@ import { useState } from "react"
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-import usePaginate from '../../../../hooks/usePaginate'
-import BookItem from '../../utils/BookItem'
-import Pagination from "../../utils/Pagination/Pagination"
 import { searchByAuthor } from '../../../../services/search-service'
+import BooksList from '../../utils/BooksList/BooksList'
 
 export default function SearchByAuthor() {
     const [form, setForm] = useState({})
@@ -13,7 +11,7 @@ export default function SearchByAuthor() {
     const [books, setBooks] = useState([])
     const [isResult, setIsResult] = useState(false)
     const [shouldShow, setShouldShow] = useState(false)
-    const { data, totalCount, pageSize, currentPage, handlePageChange } = usePaginate(books)
+    const [isResultLoading, setIsResultLoading] = useState(false)
 
     const setField = (field, value) => {
         setForm({
@@ -33,12 +31,14 @@ export default function SearchByAuthor() {
             setErrors(newErrors)
             return
         }
+        setIsResultLoading(true)
         searchByAuthor(form.keyword).then(x => {
             setBooks(x)
-            if (books.length > 0) {
+            if (x.length > 0) {
                 setIsResult(true)
             }
             setShouldShow(true)
+            setIsResultLoading(false)
         })
 
     }
@@ -62,21 +62,15 @@ export default function SearchByAuthor() {
                     placeholder="Keyword" isInvalid={!!errors.keyword} />
                 <Form.Control.Feedback type="invalid">{errors.keyword}</Form.Control.Feedback>
             </Form.Group>
-            <Button type="submit" style={{ marginTop: "2%" }}>Search</Button>
+            <Button type="submit" style={{ marginTop: "5%" }}>Search</Button>
         </Form>
         {shouldShow ?
             isResult
-                ? <>
-                    {data.map(book => <BookItem book={book} key={book._id} id={book._id}></BookItem>)}
-                    <Pagination
-                        itemsCount={totalCount}
-                        pageSize={pageSize}
-                        currentPage={currentPage}
-                        onPageChange={handlePageChange} />
-                    page {currentPage} of {Math.ceil(totalCount / pageSize)}
-                </>
+                ? <BooksList books={books} />
                 : <p>No results</p>
-            : null
+            : isResultLoading
+                ? <p>Loading results...</p>
+                : null
         }
     </div >
 

@@ -17,6 +17,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "shortid": "^2.2.16",
     "source-map-explorer": "^2.5.2",
     "taginput-react": "^1.0.6",
     "uniqid": "^5.4.0",

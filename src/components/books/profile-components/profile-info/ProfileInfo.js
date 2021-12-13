@@ -94,7 +94,7 @@ function ProfileInfo() {
                 <Form.Label>Set Avatar (optional)</Form.Label>
                 <Form.Control type="file" onChange={e => setFile(e.target.files[0])}></Form.Control>
             </Form.Group>
-            <Button type="submit" style={{ marginTop: "2%" }}>Upload new avatar</Button>
+            <Button type="submit" style={{ marginTop: "5%" }}>Upload new avatar</Button>
         </Form>
         <Modal show={isLoadingAvatar}>
             <Modal.Body>Avatar is loading...</Modal.Body>

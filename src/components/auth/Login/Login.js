@@ -74,20 +74,20 @@ function Signin() {
             <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Email or username</Form.Label>
-                    <Form.Control type="text" onChange={e => setField('emailOrUsername', e.target.value)} isInvalid={!!errors.emailOrUsername} placeholder="Email or username" />
-                    <Form.Control.Feedback type='invalid'>
+                    <Form.Control type="text" onChange={e => setField('emailOrUsername', e.target.value)} isInvalid={!!errors.emailOrUsername} placeholder="Email or username" data-testid="input-1" />
+                    <Form.Control.Feedback type='invalid' data-testid="invalid-1">
                         {errors.emailOrUsername}
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type={doShowPassword ? 'text' : 'password'} autoComplete="your-pass" onChange={e => setField('password', e.target.value)} isInvalid={!!errors.password} placeholder="Password" />
+                    <Form.Control data-testid="input-2" type={doShowPassword ? 'text' : 'password'} autoComplete="your-pass" onChange={e => setField('password', e.target.value)} isInvalid={!!errors.password} placeholder="Password" />
                     <Form.Check label="Show password" onChange={checkboxChange}></Form.Check>
-                    <Form.Control.Feedback type='invalid'>
+                    <Form.Control.Feedback type='invalid' data-testid="invalid-2">
                         {errors.password}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit">Login</Button>
+                <Button type="submit" data-testid="button">Sign in</Button>
             </Form>
         </div>
     )
