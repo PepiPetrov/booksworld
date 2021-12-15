@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button' 
+import Button from 'react-bootstrap/Button'
 import { register } from '../../../services/auth-service'
 import { isEmail, equals, isLength } from '../../../validators'
 import { isGuest } from '../../../hoc/isGuest'
@@ -69,37 +69,36 @@ function Signup() {
     return (
         <div>
             <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
-            <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
+            <Form style={{ width: '300px' }} onSubmit={handleSubmit} role="form">
                 <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" onChange={e => setField('email', e.target.value)} isInvalid={!!errors.email} />
-                    <Form.Control.Feedback type='invalid'>
-                        {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" onChange={e => setField('username', e.target.value)} isInvalid={!!errors.username} />
-                    <Form.Control.Feedback type='invalid'>
+                    <Form.Label>Username*</Form.Label>
+                    <Form.Control data-testid="input-2" type="text" onChange={e => setField('username', e.target.value)} isInvalid={!!errors.username} />
+                    <Form.Control.Feedback type='invalid' data-testid="invalid-2">
                         {errors.username}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type={doShowPassword ? 'text' : 'password'} autoComplete="" onChange={e => setField('password', e.target.value)} isInvalid={!!errors.password} />
-                    <Form.Check label="Show password" onChange={checkboxChange}></Form.Check>
-                    <Form.Control.Feedback type='invalid'>
+                <Form.Group style={{ marginTop: "5%" }}>
+                    <Form.Label>Email*</Form.Label>
+                    <Form.Control type="email" data-testid="input-1" onChange={e => setField('email', e.target.value)} isInvalid={!!errors.email} />
+                    <Form.Control.Feedback type='invalid' data-testid="invalid-1">
+                        {errors.email}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group style={{ marginTop: "5%" }}>
+                    <Form.Label>Password* / <Form.Check style={{ marginTop: "5%" }} label="Show password" data-testid="checkbox-1" onChange={checkboxChange}></Form.Check></Form.Label>
+                    <Form.Control data-testid="input-3" role="input" type={doShowPassword ? 'text' : 'password'} autoComplete="" onChange={e => setField('password', e.target.value)} isInvalid={!!errors.password} />
+                    <Form.Control.Feedback type='invalid' data-testid="invalid-3">
                         {errors.password}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" autoComplete="" onChange={e => setField('confirmPassword', e.target.value)} isInvalid={!!errors.confirmPassword} />
-                    <Form.Control.Feedback type='invalid'>
+                <Form.Group style={{ marginTop: "5%" }}>
+                    <Form.Label>Confirm Password*</Form.Label>
+                    <Form.Control type="password" role="confirm-pass" autoComplete="" onChange={e => setField('confirmPassword', e.target.value)} isInvalid={!!errors.confirmPassword} />
+                    <Form.Control.Feedback type='invalid' role="invalid-confirm">
                         {errors.confirmPassword}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit">Register</Button>
+                <Button type="submit" variant="success" style={{ marginTop: "5%" }}>Register</Button>
             </Form>
         </div>
     )

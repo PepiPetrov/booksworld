@@ -18,11 +18,13 @@ export default function NewestBooks() {
         }
     })
 
-    return newest && newest.length > 0
-        ? <>
-            <h1>Newest books</h1>
-            <BooksList books={newest} />
+    return !isFetch
+        ? newest && newest.length > 0
+            ? <>
+                <h1 style={{ marginTop: "3%" }}>Newest books</h1>
+                <BooksList books={newest} />
 
-        </>
-        : <p>No books</p>
+            </>
+            : <p>No books</p>
+        : <p>Loading books...</p>
 }

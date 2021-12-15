@@ -56,18 +56,18 @@ export default function SearchBySeries() {
 
     return <div>
         <h1 className="my-4 font-weight-bold .display-4">Search by series</h1>
-        <Form onSubmit={handleSubmit} style={{ width: "50%", marginLeft: "27%" }}>
+        <Form onSubmit={handleSubmit} style={{ width: "50%", marginLeft: "27%" }} data-testid="form">
             <Form.Group>
                 <Form.Control onChange={e => setField('keyword', e.target.value)}
-                    placeholder="Keyword" isInvalid={!!errors.keyword} />
-                <Form.Control.Feedback type="invalid">{errors.keyword}</Form.Control.Feedback>
+                    placeholder="Keyword" isInvalid={!!errors.keyword} role="input" />
+                <Form.Control.Feedback type="invalid" role="invalid-input">{errors.keyword}</Form.Control.Feedback>
             </Form.Group>
-            <Button type="submit" style={{ marginTop: "5%" }}>Search</Button>
+            <Button type="submit" style={{ marginTop: "10%" }}>Search</Button>
         </Form>
         {shouldShow ?
             isResult
                 ? <BooksList books={books} />
-                : <p>No results</p>
+                : <p style={{ marginTop: "3%" }}>No results</p>
             : isLoading
                 ? <p>Loading results...</p>
                 : null

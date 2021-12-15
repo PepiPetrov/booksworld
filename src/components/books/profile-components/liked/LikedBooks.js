@@ -22,11 +22,11 @@ function LikedBooks() {
     return !isFetch
         ? liked && liked.length > 0
             ? <>
-                <h1>Liked books</h1>
+                <h1 style={{ marginTop:"0.5%" }}>Liked books</h1>
                 <BooksList books={liked} />
             </>
             : <p>No liked books</p>
-        : <p>Fetching data...</p>
+        : <p>Loading books...</p>
 }
 
 export default isAuth(LikedBooks)

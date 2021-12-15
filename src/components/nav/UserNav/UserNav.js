@@ -16,14 +16,14 @@ export default function UserNav() {
 
     return <header style={{ backgroundColor: "#ACD646", width: "100%" }}>
         <Navbar bg="light" expand="lg">
-            <Container style={{ backgroundColor: "#ACD646" }}>
-                <Navbar.Brand to="/" as={Link}><Logo /> BooksWorld</Navbar.Brand>
+            <Container style={{ backgroundColor: "greenyellow" }}>
+                <Navbar.Brand to="/" as={Link} data-testid="main" style={{ marginRight: "2%" }}><Logo /> BookWorld</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="me-auto" style={{ marginLeft: "15%" }}>
                         <Catalog />
                         <Search />
-                        <Nav.Link to="/create" as={Link}>Create</Nav.Link>
+                        <Nav.Link to="/create" as={Link}>Add book</Nav.Link>
                         <NavDropdown title="Profile">
                             <NavDropdown.Item to="/profile/my" as={Link}>My books</NavDropdown.Item>
                             <NavDropdown.Item to="/profile/liked" as={Link}>Liked books</NavDropdown.Item>

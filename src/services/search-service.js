@@ -5,7 +5,7 @@ export async function searchByTitle(string) {
     const results = []
     if (books !== null) {
         for (const book of books) {
-            if (book.title.includes(string)) {
+            if (book.title.toLowerCase().includes(string.toLowerCase())) {
                 results.push(book)
             }
         }
@@ -19,7 +19,7 @@ export async function searchByAuthor(string) {
     const results = []
     if (books !== null) {
         for (const book of books) {
-            if (book.author.includes(string)) {
+            if (book.author.toLowerCase().includes(string.toLowerCase())) {
                 results.push(book)
             }
         }
@@ -33,7 +33,8 @@ export async function searchByGenre(string) {
     const results = []
     if (books !== null) {
         for (const book of books) {
-            if (book.genres.includes(string)) {
+            const genres = book.genres.map(x => x.toLowerCase())
+            if (genres.filter(x => x.includes(string.toLowerCase())).length > 0) {
                 results.push(book)
             }
         }
@@ -47,7 +48,7 @@ export async function searchBySeries(string) {
     const results = []
     if (books !== null) {
         for (const book of books) {
-            if (book.series.includes(string)) {
+            if (book.series && book.series.toLowerCase().includes(string.toLowerCase())) {
                 results.push(book)
             }
         }

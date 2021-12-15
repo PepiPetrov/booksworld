@@ -1,6 +1,7 @@
 import { getDatabase, ref, child, get, set, remove } from "firebase/database"
 import app from './firebase'
 import { getAll, getBook, removeBook, edit } from './books-service'
+import { searchByGenre,searchByAuthor } from './search-service'
 import { getAllComments, removeAllCommentsForBook, removeComment } from "./comments-service"
 
 const db = getDatabase(app)
@@ -95,7 +96,7 @@ export async function getRecommendedBooks() {
     if (allBooks !== null) {
         if (genres && genres.length > 0) {
             for (let genre of genres) {
-                const filteredBooks = allBooks.filter(x => x.genres.includes(genre))
+                const filteredBooks = await searchByGenre(genre)
                 filteredBooks.map(x => {
                     recommendedBooks.push(x)
                     return x
@@ -104,7 +105,7 @@ export async function getRecommendedBooks() {
         }
         if (authors && authors.length > 0) {
             for (let author of authors) {
-                const filteredBooks = allBooks.filter(x => x.author === author)
+                const filteredBooks = await searchByAuthor(author)
                 filteredBooks.map(x => {
                     recommendedBooks.push(x)
                     return x
@@ -144,7 +145,5 @@ export async function removeProfile() {
             await remove(child(dbRef, '/users/' + userId))
         }
     }
-
-
 
 }

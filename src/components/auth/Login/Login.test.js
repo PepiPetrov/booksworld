@@ -19,7 +19,7 @@ describe('login', () => {
         expect(component.findByTestId('invalid-1')).toBeTruthy()
     })
 
-    test('field 1 is working', () => {
+    test('field 2 is working', () => {
         const component = render(<redux.Provider store={store}>
             <Routes>
                 <Route path="/" element={<Signin />}></Route>

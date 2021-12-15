@@ -14,17 +14,20 @@ function CreatedBooks() {
                 setCreated(x)
             })
         }
+
         return () => {
             setIsFetch(false)
         }
     })
 
-    return created && created.length > 0
-        ? <>
-            <h1>My books</h1>
-            <BooksList books={created} />
-        </>
-        : <p>No created books</p>
+    return !isFetch
+        ? created && created.length > 0
+            ? <>
+                <h1 style={{ marginTop:"0.5%" }}>My books</h1>
+                <BooksList books={created} />
+            </>
+            : <p>No created books</p>
+        : <p>Loading your awesome books...</p>
 }
 
 export default isAuth(CreatedBooks)

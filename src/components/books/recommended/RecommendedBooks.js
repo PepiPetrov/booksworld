@@ -18,15 +18,17 @@ function RecommendedBooks() {
         return () => {
             setIsLoading(false)
         }
-    }, [isLoading])
+    }, [isLoading, books])
 
-    return books && books.length > 0
-        ? <>
-            <h1>Recommended books</h1>
-            <BooksList books={books} />
+    return !isLoading
+        ? books && books.length > 0
+            ? <>
+                <h1>Recommended books</h1>
+                <BooksList books={books} />
 
-        </>
-        : <p>No books</p>
+            </>
+            : <p>No books</p>
+        : <p>Loading the recommended books for you...</p>
 }
 
 

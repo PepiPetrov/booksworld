@@ -17,6 +17,7 @@ describe('Home page', () => {
 
         expect(home.getAllByTestId('links')).toBeTruthy()
     })
+    
     test('login is correct', () => {
         const spyOnUseSelector = jest.spyOn(redux, 'useSelector').mockImplementation(cb => cb({ user: { username: 'dmd', token: 'dmeoeome' } }));
 

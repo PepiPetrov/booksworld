@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import { useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,6 +10,7 @@ function Comments({ bookId }) {
     const [isLoading, setIsLoading] = useState(true)
     const [form, setForm] = useState({})
     const [errors, setErrors] = useState({})
+    const contentRef = createRef()
 
     useEffect(() => {
         if (isLoading) {
@@ -41,6 +42,7 @@ function Comments({ bookId }) {
             setErrors(newErrors)
             return
         }
+        contentRef.current.value = ""
         createComment(form, bookId).then(x => {
             setComments(x)
         })
@@ -55,17 +57,17 @@ function Comments({ bookId }) {
         return newErrors
     }
 
-    return <div className="align-items-center" style={{ marginTop: "5%" }}>
+    return <div className="align-items-center" style={{ marginTop: "1%" }}>
         {comments.length > 0
             ? comments.map(x => <CommentItem comment={x} setComments={setComments} bookId={bookId} key={x._id}></CommentItem>)
             : <p>No comments</p>}
         {localStorage.getItem('token')
-            ? <Form onSubmit={handleSubmit} style={{ marginTop: "5%", width: "50%", marginLeft: "26%" }}>
+            ? <Form onSubmit={handleSubmit} style={{ marginTop: "0.5%", width: "50%", marginLeft: "26%" }}>
                 <Form.Group>
-                    <Form.Control as="textarea" onChange={e => setField('content', e.target.value)} placeholder="Comment" isInvalid={!!errors.content}></Form.Control>
+                    <Form.Control ref={contentRef} as="textarea" onChange={e => setField('content', e.target.value)} placeholder="Comment" isInvalid={!!errors.content}></Form.Control>
                     <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit" style={{ marginTop: "5%" }}>Create comment</Button>
+                <Button type="submit" variant="success" style={{ marginTop: "3%", marginBottom: "2%" }}>Write comment</Button>
             </Form>
             : null}
     </div>
@@ -85,15 +87,15 @@ function CommentItem({ comment, setComments, bookId }) {
         })
     }
     return <div>
-        <p>{comment.content}</p>
+        <div style={{ width: "90%", marginLeft: "6%", marginTop: "2%" }}><p style={{ color: "#198754", marginBottom: "0" }}>{comment.creator} says:</p> {comment.content}</div>
         {comment.creator === localStorage.getItem('username')
-            ? <div>
+            ? <div style={{ marginBottom: "2%" }}>
                 {!showEdit
-                    ? <Button variant="warning" onClick={e => setShowEdit(true)}>Show edit</Button>
-                    : <Button variant="warning" onClick={e => setShowEdit(false)}>Hide edit</Button>
+                    ? <Button variant="warning" onClick={e => setShowEdit(true)} style={{ marginTop: "2%" }}>Show edit</Button>
+                    : <Button variant="warning" onClick={e => setShowEdit(false)}  style={{ marginTop: "2%" }}>Hide edit</Button>
                 }
                 {'  '}
-                <Button variant="danger" onClick={remove}>Remove comment</Button>
+                <Button variant="danger" onClick={remove} style={{ marginTop: "2%" }}>Remove comment</Button>
                 {showEdit
                     ? <EditForm comment={comment} setComments={setComments} bookId={bookId} setShowEdit={setShowEdit}></EditForm>
                     : null}
@@ -142,14 +144,14 @@ function EditForm({ setComments, bookId, comment, setShowEdit }) {
         return newErrors
     }
 
-    return <Form style={{ marginTop: "5%" }} onSubmit={handleSubmit}>
+    return <Form style={{ marginTop: "2%" }} onSubmit={handleSubmit}>
         <Form.Group>
             <Form.Label>Comment content</Form.Label>
-            <Form.Control placeholder="Content" defaultValue={comment.content}
+            <Form.Control style={{ width: "80%", marginLeft: "10%" }} placeholder="Content" defaultValue={comment.content}
                 onChange={e => setField('content', e.target.value)}
                 isInvalid={!!errors.content}></Form.Control>
         </Form.Group>
-        <Button type="submit" style={{ marginTop: "5%" }}>Edit comment</Button>
+        <Button type="submit" style={{ marginTop: "2%", marginBottom: "2%" }}>Edit comment</Button>
     </Form>
 }
 

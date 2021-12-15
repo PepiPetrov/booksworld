@@ -11,7 +11,7 @@ export default function BooksList({ books }) {
 
     return <>
         {splittedData.map(x => {
-            return <div className={styles['books-row']}>
+            return <div className={styles['books-row']} data-testid="booksrow" key={x[0]._id}>
                 {x.map(book => {
                     return <BookItem book={book} key={book._id} />
                 })

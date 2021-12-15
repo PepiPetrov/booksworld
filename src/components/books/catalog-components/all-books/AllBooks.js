@@ -18,10 +18,12 @@ export default function AllBooks() {
         }
     })
 
-    return all && all.length > 0
-        ? <>
-            <h1>All books</h1>
-            <BooksList books={all}></BooksList>
-        </>
-        : <p>No books</p>
+    return !isFetch
+        ? all && all.length > 0
+            ? <>
+                <h1 style={{ marginTop: "3%" }}>All books</h1>
+                <BooksList books={all}></BooksList>
+            </>
+            : <p>No books</p>
+        : <p>Loading books...</p>
 }

@@ -31,11 +31,11 @@ function FavouriteBooks() {
     return !isFetch
         ? favourites && favourites.length > 0
             ? <>
-                <h1>Favoruite books</h1>
+                <h1 style={{ marginTop:"0.5%" }}>Favoruite books</h1>
                 <BooksList books={books} />
             </>
             : <p>No favourite books</p>
-        : <p>Fetching data...</p>
+        : <p>Loading books...</p>
 }
 
 export default isAuth(FavouriteBooks)

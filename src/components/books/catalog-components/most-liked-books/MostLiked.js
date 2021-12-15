@@ -18,10 +18,12 @@ export default function MostLikedBooks() {
         }
     })
 
-    return mostLiked && mostLiked.length > 0
-        ? <>
-            <h1>Most liked books</h1>
-            <BooksList books={mostLiked} />
-        </>
-        : <p>No books</p>
+    return !isFetch
+        ? mostLiked && mostLiked.length > 0
+            ? <>
+                <h1 style={{ marginTop:"3%" }}>Most liked books</h1>
+                <BooksList books={mostLiked} />
+            </>
+            : <p>No books</p>
+        : <p>Loading books...</p>
 }

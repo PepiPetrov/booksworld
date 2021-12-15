@@ -30,14 +30,19 @@ export async function getBook(id) {
 }
 
 export async function create(book, file) {
-    book.rating = []
-    book.likes = []
-    book.creator = localStorage.getItem('username')
-    book._id = uniqid()
-    book.createdOn = Date.now()
-    await uploadImage(book._id, file)
-    await push(child(dbRef, '/books'), book)
-    return book._id
+    const isExisting = await ifExists(book)
+    if (!isExisting) {
+        book.rating = []
+        book.likes = []
+        book.creator = localStorage.getItem('username')
+        book._id = uniqid()
+        book.createdOn = Date.now()
+        await uploadImage(book._id, file)
+        await push(child(dbRef, '/books'), book)
+        return book._id
+    } else {
+        return null
+    }
 }
 
 export async function edit(id, book, file) {
@@ -193,7 +198,7 @@ export async function dislike(bookId) {
 
 export async function getNewestBooks() {
     const books = await getAll()
-    const result = books ? books.sort((a, b) => b.createdOn - a.createdOn).slice(0, 10) : []
+    const result = books ? books.sort((a, b) => b.createdOn - a.createdOn).slice(0, 12) : []
 
     return result
 }
@@ -201,7 +206,7 @@ export async function getNewestBooks() {
 export async function getMostLikedBooks() {
     const books = await getAll()
     const result = books
-        ? books.filter(x => x.likes).sort((a, b) => a.likes.length - b.likes.length).slice(0, 10)
+        ? books.filter(x => x.likes).sort((a, b) => b.likes.length - a.likes.length).slice(0, 12)
         : []
 
     return result
@@ -211,4 +216,15 @@ export async function getBooksByUser(username) {
     const books = await getAll()
 
     return books.filter(x => x.creator === username)
+}
+
+export async function ifExists(book) {
+    const books = await getAll()
+    for (const bookCheck of books) {
+        if (book.title === bookCheck.title) {
+            return true
+        }
+    }
+
+    return false
 }

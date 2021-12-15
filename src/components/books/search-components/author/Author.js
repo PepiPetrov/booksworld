@@ -62,12 +62,12 @@ export default function SearchByAuthor() {
                     placeholder="Keyword" isInvalid={!!errors.keyword} />
                 <Form.Control.Feedback type="invalid">{errors.keyword}</Form.Control.Feedback>
             </Form.Group>
-            <Button type="submit" style={{ marginTop: "5%" }}>Search</Button>
+            <Button type="submit" style={{ marginTop: "10%" }}>Search</Button>
         </Form>
         {shouldShow ?
             isResult
                 ? <BooksList books={books} />
-                : <p>No results</p>
+                : <p style={{ marginTop: "3%" }}>No results</p>
             : isResultLoading
                 ? <p>Loading results...</p>
                 : null

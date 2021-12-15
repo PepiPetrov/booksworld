@@ -44,6 +44,7 @@ function ProfileInfo() {
         getAvatar(localStorage.getItem('username')).then(x => {
             setUrl(x)
         }).catch(x => {
+            setUrl('https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png')
         })
 
         return () => {
@@ -62,10 +63,23 @@ function ProfileInfo() {
         })
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
         if (file !== null) {
             setIsLoadingAvatar(true)
+            if (!isFileImage(file)) {
+                fetch('https://media.istockphoto.com/illustrations/blank-man-profile-head-icon-placeholder-illustration-id1298261537?k=20&m=1298261537&s=612x612&w=0&h=8plXnK6Ur3LGqG9s-Xt2ZZfKk6bI0IbzDZrNH9tr9Ok=')
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const noAvatar = new File([blob], "avatar.jpg", {
+                            type: blob.type,
+                        });
+                        setAvatar(localStorage.getItem('username'), noAvatar).then(() => {
+                            setIsLoadingAvatar(false)
+                            window.location.reload()
+                        })
+                    });
+            }
             setAvatar(localStorage.getItem('username'), file).then(() => {
                 setIsLoadingAvatar(false)
                 window.location.reload()
@@ -73,33 +87,39 @@ function ProfileInfo() {
         }
     }
 
-    return <>
-        <Card style={{ width: "300px", marginTop: "2%" }}>
-            <Card.Header>
-                <h1>Profile info</h1>
-                <p>Username: {user.username}</p>
-            </Card.Header>
-            <Card.Body>
-                <div>
-                    <p>Avatar preview: <Image src={url} alt="No avatar" className="avatar"></Image></p>
-                </div>
-                <p>Created books: {createdLength}</p>
-                <p>Liked books: {likedLength}</p>
-                <p>Favourite books: {favouritesLength}</p>
-                <Button variant="danger" onClick={handleBtnClick}>Remove profile</Button>
-            </Card.Body>
-        </Card>
-        <Form onSubmit={onSubmit}>
-            <Form.Group>
-                <Form.Label>Set Avatar (optional)</Form.Label>
-                <Form.Control type="file" onChange={e => setFile(e.target.files[0])}></Form.Control>
-            </Form.Group>
-            <Button type="submit" style={{ marginTop: "5%" }}>Upload new avatar</Button>
-        </Form>
-        <Modal show={isLoadingAvatar}>
-            <Modal.Body>Avatar is loading...</Modal.Body>
-        </Modal>
-    </>
+    return !isLoading
+        ? <>
+            <Card style={{ width: "300px", marginTop: "2%" }}>
+                <Card.Header>
+                    <h1 style={{ marginTop: "0.5%" }}>Profile info</h1>
+                    <p>Username: {user.username}</p>
+                </Card.Header>
+                <Card.Body>
+                    <div>
+                        <p>Avatar preview: <Image src={url} alt="No avatar" className="avatar"></Image></p>
+                    </div>
+                    <p>Created books: {createdLength}</p>
+                    <p>Liked books: {likedLength}</p>
+                    <p>Favourite books: {favouritesLength}</p>
+                    <Button variant="danger" onClick={handleBtnClick}>Remove profile</Button>
+                </Card.Body>
+            </Card>
+            <Form onSubmit={onSubmit}>
+                <Form.Group>
+                    <Form.Label>Set Avatar</Form.Label>
+                    <Form.Control type="file" onChange={e => setFile(e.target.files[0])}></Form.Control>
+                </Form.Group>
+                <Button type="submit" style={{ marginTop: "5%" }}>Upload new avatar</Button>
+            </Form>
+            <Modal show={isLoadingAvatar}>
+                <Modal.Body>Avatar is loading...</Modal.Body>
+            </Modal>
+        </>
+        : <p>Loading your info...</p>
+}
+
+function isFileImage(file) {
+    return file && file['type'].split('/')[0] === 'image';
 }
 
 export default isAuth(ProfileInfo)

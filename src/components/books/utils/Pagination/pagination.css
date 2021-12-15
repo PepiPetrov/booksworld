@@ -17,7 +17,7 @@
 }
 
 .pagination div.active {
-    background-color: #05aff1;
+    background-color: green;
 }
 
 .pagination div:not(.active) {
