@@ -98,7 +98,7 @@ function ProfileInfo() {
                     <div>
                         <p>Avatar preview: <Image src={url} alt="No avatar" className="avatar"></Image></p>
                     </div>
-                    <p>Created books: {createdLength}</p>
+                    <p>Added books: {createdLength}</p>
                     <p>Liked books: {likedLength}</p>
                     <p>Favourite books: {favouritesLength}</p>
                     <Button variant="danger" onClick={handleBtnClick}>Remove profile</Button>
